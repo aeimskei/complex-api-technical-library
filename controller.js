@@ -39,10 +39,33 @@ const createBook = (req, res, next) => {
   res.status(201).json({data:book})
 }
 
+// ===========================================
+// PUT, Update books
+// ===========================================
+
+const updateBook = (req, res, next) => {
+  const id = req.params.id
+  const { name, borrowed, description, authors } = req.body
+
+  if (!id) return next({status: 400, message: `Book ID is required to update`})
+
+  const book = model.updateBook(id, name, borrowed, description, authors)
+
+  if (book.error) {
+    let {error, message} = book;
+    return res.status(201).json({error: {message}})
+  }
+
+  res.status(201).json({data: book})
+}
+
+
+
 
 
 module.exports = {
   getAllBooks,
   getBookById,
-  createBook
+  createBook,
+  updateBook
 }

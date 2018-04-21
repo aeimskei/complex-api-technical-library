@@ -50,11 +50,33 @@ function createBook(name, borrowed, description, authors) {
 
   return addBook;
 }
-// TEST: http POST localhost:3000/books name=Tribe  description=Mentors authors:='[{"first_name": "Tim", "last_name": "Ferris"}]'
+// TEST: http POST localhost:3000/books name='Tribe of Mentors'  description='This book contains their answers—practical and tactical advice from mentors who have found solutions.'  authors:='[{"first_name": "Tim", "last_name": "Ferris"}]'
+
+// ===========================================
+// PUT, Update books
+// ===========================================
+
+function updateBook(id, name, borrowed, description, authors) {
+  const book = getBookById(id)
+
+  if (!book) {
+    return {error: 404, message: `Book with id ${id} no found.`}
+  }
+
+  book.name = name
+  book.description = description
+  book.authors = authors
+  fs.writeFileSync(filePath, JSON.stringify(books))
+
+  return book;
+}
+// TEST: http PUT localhost:3000/books/f041cd authors:='[{"first_name":"Change", "last_name":"Author Name"}]'
+
 
 
 module.exports = {
   getAllBooks,
   getBookById,
-  createBook
+  createBook,
+  updateBook
 }

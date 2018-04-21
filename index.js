@@ -16,6 +16,7 @@ app.use(bodyParser.json())
 app.get('/books', controller.getAllBooks)
 app.get('/books/:id', controller.getBookById)
 app.post('/books', controller.createBook)
+app.put('/books/:id', controller.updateBook)
 
 // ===========================================
 // Error handling
