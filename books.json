@@ -1,0 +1,41 @@
+[
+  {
+    "id": "7fdf61",
+    "name": "Brand Thinking and Other Noble Pursuits",
+    "borrowed": "yes",
+    "description": "For those of us who grapple with these questions on a daily basis, Brand Thinking and Other Noble Pursuits elevates the discussion to the level of revelation. Each chapter is an extensive dialogue between Debbie Millman, herself a design visionary, and a different leader in the field.",
+    "authors": [
+      {
+        "id": "d6cf0d",
+        "first_name": "Debbie",
+        "last_name": "Millman"
+      }
+    ]
+  }, 
+  {
+    "id": "bf3032",
+    "name": "The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution",
+    "borrowed": "no",
+    "description": "This is the story of how their minds worked and what made them so inventive. It’s also a narrative of how their ability to collaborate and master the art of teamwork made them even more creative.",
+    "authors": [
+      {
+        "id": "aa28a6",
+        "first_name": "Walter",
+        "last_name": "Isaacson"
+      }
+    ]
+  }, 
+  {
+    "id": "ed8f74",
+    "name": "Benjamin Franklin: An American Life",
+    "borrowed": "yes",
+    "description": "In this colorful and intimate narrative, Isaacson provides the full sweep of Franklin’s amazing life, showing how he helped to forge the American national identity and why he has a particular resonance in the twenty-first century.",
+    "authors": [
+      {
+        "id": "a158dd",
+        "first_name": "Walter",
+        "last_name": "Isaacson"
+      }
+    ]
+  }
+]
