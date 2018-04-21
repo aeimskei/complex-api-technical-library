@@ -10,6 +10,10 @@ const getAllBooks = (req, res, next) => {
   res.status(200).json({data: books})
 }
 
+// ===========================================
+// GET, Read books by id
+// ===========================================
+
 const getBookById = (req, res, next) => {
   const id = req.params.id
 
@@ -78,13 +82,31 @@ const deleteBook = (req, res, next) => {
   res.status(200).json({data: book})
 }
 
+// ===========================================
+// GET, Read all authors data
+// ===========================================
 
+const getAllAuthors = (req, res, next) => {
+  const id = req.params.id
+  const name = req.body.name
 
+  if (!id) return next({status: 400, message: `A book ID or name is required`})
+
+  const authors = model.getAllAuthors(id, name)
+
+  if (authors.error) {
+    let {error, message} = authors;
+    return res.status(error).json({error: {message}})
+  }
+
+  res.status(200).json({data: authors})
+}
 
 module.exports = {
   getAllBooks,
   getBookById,
   createBook,
   updateBook,
-  deleteBook
+  deleteBook,
+  getAllAuthors
 }

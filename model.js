@@ -5,13 +5,17 @@ const filePath = './books.json'
 const books = JSON.parse(fs.readFileSync(filePath))
 
 // ===========================================
-// GET, Read books data
+// GET, Read all books data
 // ===========================================
 
 function getAllBooks() {
   return books;
 }
 // TEST: http GET localhost:3000/books
+
+// ===========================================
+// GET, Read books by id
+// ===========================================
 
 function getBookById(id) {
   const book = books.find(book => book.id === id)
@@ -91,6 +95,22 @@ function deleteBook(id) {
 }
 // TEST: http DELETE localhost:3000/books/f041cd
 
+// ===========================================
+// GET, Read all authors data
+// ===========================================
+
+function getAllAuthors(id, name) {
+  const book = getBookById(id)
+  const authors = book.authors
+
+  if (book.error) {
+    return {error: 404, message: `Book with id ${id} not found.`}
+  }
+
+  return authors;
+}
+
+
 
 
 module.exports = {
@@ -98,5 +118,6 @@ module.exports = {
   getBookById,
   createBook,
   updateBook,
-  deleteBook
+  deleteBook,
+  getAllAuthors
 }

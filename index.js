@@ -20,6 +20,14 @@ app.put('/books/:id', controller.updateBook)
 app.delete('/books/:id', controller.deleteBook)
 
 // ===========================================
+// Author Routes (GET/POST/PUT/DELETE)
+// ===========================================
+
+app.get('books/:id/authors', controller.getAllAuthors)
+
+
+
+// ===========================================
 // Error handling
 // ===========================================
 app.use((err, req, res, next) => {
