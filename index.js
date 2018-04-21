@@ -17,6 +17,7 @@ app.get('/books', controller.getAllBooks)
 app.get('/books/:id', controller.getBookById)
 app.post('/books', controller.createBook)
 app.put('/books/:id', controller.updateBook)
+app.delete('/books/:id', controller.deleteBook)
 
 // ===========================================
 // Error handling

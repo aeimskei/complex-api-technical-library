@@ -25,7 +25,7 @@ function getBookById(id) {
 // TEST: http GET localhost:3000/books/7fdf61
 
 // ===========================================
-// POST, Create books
+// POST, Create book
 // ===========================================
 
 function createBook(name, borrowed, description, authors) {
@@ -53,7 +53,7 @@ function createBook(name, borrowed, description, authors) {
 // TEST: http POST localhost:3000/books name='Tribe of Mentors'  description='This book contains their answers—practical and tactical advice from mentors who have found solutions.'  authors:='[{"first_name": "Tim", "last_name": "Ferris"}]'
 
 // ===========================================
-// PUT, Update books
+// PUT, Update book
 // ===========================================
 
 function updateBook(id, name, borrowed, description, authors) {
@@ -72,11 +72,31 @@ function updateBook(id, name, borrowed, description, authors) {
 }
 // TEST: http PUT localhost:3000/books/f041cd authors:='[{"first_name":"Change", "last_name":"Author Name"}]'
 
+// ===========================================
+// DELETE, Destroy book
+// ===========================================
+
+function deleteBook(id) {
+  const book = books.find(book => book.id === id)
+
+  if (!book) {
+    return {error: 404, message: `Book id of ${id} was not found.`}
+  }
+
+  const index = books.indexOf(book)
+  books.splice(index, 1)
+  fs.writeFileSync(filePath, JSON.stringify(books))
+
+  return book;
+}
+// TEST: http DELETE localhost:3000/books/f041cd
+
 
 
 module.exports = {
   getAllBooks,
   getBookById,
   createBook,
-  updateBook
+  updateBook,
+  deleteBook
 }

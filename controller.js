@@ -26,7 +26,7 @@ const getBookById = (req, res, next) => {
 }
 
 // ===========================================
-// POST, Create books
+// POST, Create book
 // ===========================================
 
 const createBook = (req, res, next) => {
@@ -40,7 +40,7 @@ const createBook = (req, res, next) => {
 }
 
 // ===========================================
-// PUT, Update books
+// PUT, Update book
 // ===========================================
 
 const updateBook = (req, res, next) => {
@@ -59,6 +59,24 @@ const updateBook = (req, res, next) => {
   res.status(201).json({data: book})
 }
 
+// ===========================================
+// DELETE, Destroy book
+// ===========================================
+
+const deleteBook = (req, res, next) => {
+  const id = req.params.id
+
+  if (!id) return next({status: 400, message: `Book ID is required`})
+
+  const book = model.deleteBook(id)
+
+  if (book.error) {
+    let {error, message} = book;
+    return res.status(error).json({error: {message}})
+  }
+
+  res.status(200).json({data: book})
+}
 
 
 
@@ -67,5 +85,6 @@ module.exports = {
   getAllBooks,
   getBookById,
   createBook,
-  updateBook
+  updateBook,
+  deleteBook
 }
