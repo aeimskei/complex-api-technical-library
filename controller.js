@@ -17,7 +17,7 @@ const getAllBooks = (req, res, next) => {
 const getBookById = (req, res, next) => {
   const id = req.params.id
 
-  if (!id) return next({status: 400, message: `Book ID is required`})
+  if (!id) return next({status: 400, message: `Book ID is required.`})
 
   const book = model.getBookById(id)
 
@@ -36,7 +36,7 @@ const getBookById = (req, res, next) => {
 const createBook = (req, res, next) => {
   const { name, borrowed, description, authors } = req.body
 
-  if (!name || !description || !authors) return next({status: 400, message: `Name, description and authors are required to add book`})
+  if (!name || !description || !authors) return next({status: 400, message: `Name, description and authors are required to add book.`})
 
   const book = model.createBook(name, borrowed, description, authors)
 
@@ -51,7 +51,7 @@ const updateBook = (req, res, next) => {
   const id = req.params.id
   const { name, borrowed, description, authors } = req.body
 
-  if (!id) return next({status: 400, message: `Book ID is required to update`})
+  if (!id) return next({status: 400, message: `Book ID is required to update.`})
 
   const book = model.updateBook(id, name, borrowed, description, authors)
 
@@ -70,7 +70,7 @@ const updateBook = (req, res, next) => {
 const deleteBook = (req, res, next) => {
   const id = req.params.id
 
-  if (!id) return next({status: 400, message: `Book ID is required`})
+  if (!id) return next({status: 400, message: `Book ID is required.`})
 
   const book = model.deleteBook(id)
 
@@ -90,7 +90,7 @@ const getAllAuthors = (req, res, next) => {
   const id = req.params.id
   const name = req.body.name
 
-  if (!id) return next({status: 400, message: `A book ID or name is required`})
+  if (!id) return next({status: 400, message: `A book ID or name is required.`})
 
   const authors = model.getAllAuthors(id, name)
 
@@ -102,11 +102,33 @@ const getAllAuthors = (req, res, next) => {
   res.status(200).json({data: authors})
 }
 
+// ===========================================
+// GET, Read authors data by id
+// ===========================================
+
+const getAuthorById = (req, res, next) => {
+  const id = req.params.id
+  const authId = req.params.authId
+
+  if (!id || !authId) return next({ status: 400, message: `Book ID and Author ID required` })
+
+  const author = model.getAuthorById(id, authId)
+
+  if (author.error) {
+    let { error, message } = author;
+    return res.status(error).json({ error: { message } })
+  }
+
+  res.status(200).json({ data: author })
+}
+
+
 module.exports = {
   getAllBooks,
   getBookById,
   createBook,
   updateBook,
   deleteBook,
-  getAllAuthors
+  getAllAuthors,
+  getAuthorById
 }

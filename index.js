@@ -23,8 +23,8 @@ app.delete('/books/:id', controller.deleteBook)
 // Author Routes (GET/POST/PUT/DELETE)
 // ===========================================
 
-app.get('books/:id/authors', controller.getAllAuthors)
-
+app.get('/books/:id/authors', controller.getAllAuthors)
+app.get('/books/:id/authors/:authId', controller.getAuthorById)
 
 
 // ===========================================

@@ -109,7 +109,29 @@ function getAllAuthors(id, name) {
 
   return authors;
 }
+// TEST: http GET localhost:3000/books/bf3032
 
+// ===========================================
+// GET, Read authors data by id
+// ===========================================
+
+function getAuthorById(id, authId) {
+  const book = getBookById(id)
+  const authors = book.authors
+
+  if (book.error) {
+    return { error: 404, message: `Book with id ${id} not found.` }
+  }
+
+  const author = authors.find(author => author.id === authId)
+
+  if (!author) {
+    return { error: 404, message: `Author with id ${authId} not found.` }
+  }
+
+  return author;
+}
+// TEST: http GET localhost:3000/books/bf3032/authors/aa28a6
 
 
 
@@ -119,5 +141,6 @@ module.exports = {
   createBook,
   updateBook,
   deleteBook,
-  getAllAuthors
+  getAllAuthors,
+  getAuthorById
 }
