@@ -163,6 +163,26 @@ const updateAuthor = (req, res, next) => {
   res.status(201).json({data: author})
 }
 
+// ===========================================
+// DELETE, Destroy author
+// ===========================================
+
+const deleteAuthor = (req, res, next) => {
+  const id = req.params.id
+  const authId = req.params.authId
+
+  if (!id || !authId) return next({status: 400, message: `Book ID and Author are ID required`})
+
+  const author = model.deleteAuthor(id, authId)
+
+  if (author.error) {
+    let { error, message } = author;
+    return res.status(error).json({ error: { message }})
+  }
+
+  res.status(200).json({data: author})
+}
+
 
 
 module.exports = {
@@ -174,5 +194,6 @@ module.exports = {
   getAllAuthors,
   getAuthorById,
   createAuthor,
-  updateAuthor
+  updateAuthor,
+  deleteAuthor
 }

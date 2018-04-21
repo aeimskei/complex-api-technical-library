@@ -27,6 +27,7 @@ app.get('/books/:id/authors', controller.getAllAuthors)
 app.get('/books/:id/authors/:authId', controller.getAuthorById)
 app.post('/books/:id/authors', controller.createAuthor)
 app.put('/books/:id/authors/:authId', controller.updateAuthor)
+app.delete('/books/:id/authors/:authId', controller.deleteAuthor)
 
 // ===========================================
 // Error handling

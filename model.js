@@ -178,6 +178,30 @@ function updateAuthor(id, authId, first_name, last_name) {
 }
 // TEST: http PUT localhost:3000/books/47f4c4/authors/09967d first_name='Patty' last_name='Pie'
 
+// ===========================================
+// DELETE, Destroy author
+// ===========================================
+
+function deleteAuthor(id, authId) {
+  const authors = getAuthorById(id, authId)
+
+  if (book.error) {
+    return { error: 404, message: `Book with id ${id} not found.`}
+  }
+
+  const author = authors.find(author => author.id === authId);
+
+  if (!author) {
+    return { error: 404, message: `Author with id ${authId} not found.`}
+  }
+
+  const index = authors.indexOf(authId)
+  authors.splice(index, 1)
+  fs.writeFileSync(filePath, JSON.stringify(books))
+
+  return author;
+}
+// TEST: http DELETE localhost:3000/books/47f4c4/authors/09967d
 
 
 module.exports = {
@@ -189,5 +213,6 @@ module.exports = {
   getAllAuthors,
   getAuthorById,
   createAuthor,
-  updateAuthor
+  updateAuthor,
+  deleteAuthor
 }
