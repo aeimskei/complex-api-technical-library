@@ -56,6 +56,8 @@ function createBook(name, borrowed, description, authors) {
 }
 // TEST: http POST localhost:3000/books name='Tribe of Mentors'  description='This book contains their answers—practical and tactical advice from mentors who have found solutions.'  authors:='[{"first_name": "Tim", "last_name": "Ferris"}]'
 
+// http POST localhost:3000/books name='New Book'  description='This book contains cool stuff.'  authors:='[{"first_name": "Bob", "last_name": "Mill"}]'
+
 // ===========================================
 // PUT, Update book
 // ===========================================
@@ -133,6 +135,49 @@ function getAuthorById(id, authId) {
 }
 // TEST: http GET localhost:3000/books/bf3032/authors/aa28a6
 
+// ===========================================
+// POST, Create author
+// ===========================================
+
+function createAuthor(id, first_name, last_name) {
+  const book = books.find(book => book.id === id)
+  const authors = book.authors
+
+  if (book.error) {
+    return { error: 404, message: `Book with id ${id} not found.` }
+  }
+
+  const addAuthor = {
+    id: ids.generate(),
+    first_name: first_name,
+    last_name: last_name
+  }
+  authors.push(addAuthor)
+  fs.writeFileSync(filePath, JSON.stringify(books))
+
+  return addAuthor;
+}
+// TEST: http POST localhost:3000/books/aeb824/authors first_name='Patty' last_name='Pie'
+
+// ===========================================
+// PUT, Update author
+// ===========================================
+
+function updateAuthor(id, authId, first_name, last_name) {
+  const author = getAuthorById(id, authId)
+
+  if(!author) {
+    return { error: 404, message: `Author with id ${authId} not found.` }  
+  }
+
+  author.first_name = first_name,
+  author.last_name = last_name
+  fs.writeFileSync(filePath, JSON.stringify(books))
+
+  return author;
+}
+// TEST: http PUT localhost:3000/books/47f4c4/authors/09967d first_name='Patty' last_name='Pie'
+
 
 
 module.exports = {
@@ -142,5 +187,7 @@ module.exports = {
   updateBook,
   deleteBook,
   getAllAuthors,
-  getAuthorById
+  getAuthorById,
+  createAuthor,
+  updateAuthor
 }

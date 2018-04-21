@@ -122,6 +122,48 @@ const getAuthorById = (req, res, next) => {
   res.status(200).json({ data: author })
 }
 
+// ===========================================
+// POST, Create author
+// ===========================================
+
+const createAuthor = (req, res, next) => {
+  const id = req.params.id
+  const { first_name, last_name } = req.body
+
+  if (!id || !first_name || !last_name) return next({ status: 400, message: `Book ID, author's firstname and author lastname are required.` })
+
+  const author = model.createAuthor(id, first_name, last_name)
+
+  if (author.error) {
+    let { error, message } = author;
+    return res.status(error).json({ error: { message } })
+  }
+
+  res.status(201).json({ data: author })
+}
+
+// ===========================================
+// PUT, Update author
+// ===========================================
+
+const updateAuthor = (req, res, next) => {
+  const id = req.params.id
+  const authId = req.params.authId
+  const {first_name, last_name} = req.body
+
+  if (!id || !authId) return next({status: 400, message: `Book ID, author's firstname and lastname are required.`})
+
+  const author = model.updateAuthor(id, authId, first_name, last_name)
+
+  if (author.error) {
+    let {error, message} = author;
+    return res.status(error).json({error: {message}})
+  }
+
+  res.status(201).json({data: author})
+}
+
+
 
 module.exports = {
   getAllBooks,
@@ -130,5 +172,7 @@ module.exports = {
   updateBook,
   deleteBook,
   getAllAuthors,
-  getAuthorById
+  getAuthorById,
+  createAuthor,
+  updateAuthor
 }
